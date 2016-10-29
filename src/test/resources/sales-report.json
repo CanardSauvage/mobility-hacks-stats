@@ -1,0 +1,172 @@
+{
+  "timezone": "Europe/Berlin",
+  "event_ids": [
+    27795158066
+  ],
+  "data": [
+    {
+      "date": "2016-09-30T22:00:00Z",
+      "topics": [],
+      "date_localized": "2016-10-01T00:00:00",
+      "totals": {
+        "currency": "EUR",
+        "gross": "50.79",
+        "net": "45.00",
+        "quantity": 3,
+        "fees": "5.79"
+      }
+    },
+    {
+      "date": "2016-10-12T22:00:00Z",
+      "topics": [],
+      "date_localized": "2016-10-13T00:00:00",
+      "totals": {
+        "currency": "EUR",
+        "gross": "67.72",
+        "net": "60.00",
+        "quantity": 4,
+        "fees": "7.72"
+      }
+    },
+    {
+      "date": "2016-10-13T22:00:00Z",
+      "topics": [],
+      "date_localized": "2016-10-14T00:00:00",
+      "totals": {
+        "currency": "EUR",
+        "gross": "33.86",
+        "net": "30.00",
+        "quantity": 2,
+        "fees": "3.86"
+      }
+    },
+    {
+      "date": "2016-10-16T22:00:00Z",
+      "topics": [],
+      "date_localized": "2016-10-17T00:00:00",
+      "totals": {
+        "currency": "EUR",
+        "gross": "33.86",
+        "net": "30.00",
+        "quantity": 2,
+        "fees": "3.86"
+      }
+    },
+    {
+      "date": "2016-10-17T22:00:00Z",
+      "topics": [],
+      "date_localized": "2016-10-18T00:00:00",
+      "totals": {
+        "currency": "EUR",
+        "gross": "16.93",
+        "net": "15.00",
+        "quantity": 1,
+        "fees": "1.93"
+      }
+    },
+    {
+      "date": "2016-10-18T22:00:00Z",
+      "topics": [],
+      "date_localized": "2016-10-19T00:00:00",
+      "totals": {
+        "currency": "EUR",
+        "gross": "33.86",
+        "net": "30.00",
+        "quantity": 2,
+        "fees": "3.86"
+      }
+    },
+    {
+      "date": "2016-10-19T22:00:00Z",
+      "topics": [],
+      "date_localized": "2016-10-20T00:00:00",
+      "totals": {
+        "currency": "EUR",
+        "gross": "33.86",
+        "net": "30.00",
+        "quantity": 2,
+        "fees": "3.86"
+      }
+    },
+    {
+      "date": "2016-10-21T22:00:00Z",
+      "topics": [],
+      "date_localized": "2016-10-22T00:00:00",
+      "totals": {
+        "currency": "EUR",
+        "gross": "16.93",
+        "net": "15.00",
+        "quantity": 1,
+        "fees": "1.93"
+      }
+    },
+    {
+      "date": "2016-10-22T22:00:00Z",
+      "topics": [],
+      "date_localized": "2016-10-23T00:00:00",
+      "totals": {
+        "currency": "EUR",
+        "gross": "16.93",
+        "net": "15.00",
+        "quantity": 7,
+        "fees": "1.93"
+      }
+    },
+    {
+      "date": "2016-10-23T22:00:00Z",
+      "topics": [],
+      "date_localized": "2016-10-24T00:00:00",
+      "totals": {
+        "currency": "EUR",
+        "gross": "33.86",
+        "net": "30.00",
+        "quantity": 2,
+        "fees": "3.86"
+      }
+    },
+    {
+      "date": "2016-10-24T22:00:00Z",
+      "topics": [],
+      "date_localized": "2016-10-25T00:00:00",
+      "totals": {
+        "currency": "EUR",
+        "gross": "16.93",
+        "net": "15.00",
+        "quantity": 1,
+        "fees": "1.93"
+      }
+    },
+    {
+      "date": "2016-10-25T22:00:00Z",
+      "topics": [],
+      "date_localized": "2016-10-26T00:00:00",
+      "totals": {
+        "currency": "EUR",
+        "gross": "16.93",
+        "net": "15.00",
+        "quantity": 1,
+        "fees": "1.93"
+      }
+    },
+    {
+      "date": "2016-10-27T22:00:00Z",
+      "topics": [],
+      "date_localized": "2016-10-28T00:00:00",
+      "totals": {
+        "currency": "EUR",
+        "gross": "50.79",
+        "net": "45.00",
+        "quantity": 4,
+        "fees": "5.79"
+      }
+    }
+  ],
+  "topic_totals": [],
+  "totals": {
+    "currency": "EUR",
+    "gross": "423.25",
+    "net": "375.00",
+    "quantity": 32,
+    "fees": "48.25"
+  }
+}
