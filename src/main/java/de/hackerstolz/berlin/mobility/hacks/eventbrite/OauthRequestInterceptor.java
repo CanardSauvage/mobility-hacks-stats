@@ -1,4 +1,4 @@
-package de.hackerstolz.berlin.mobility.hacks;
+package de.hackerstolz.berlin.mobility.hacks.eventbrite;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;

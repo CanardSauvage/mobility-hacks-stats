@@ -1,0 +1,184 @@
+{
+  "pagination": {
+    "object_count": 3,
+    "page_number": 1,
+    "page_size": 50,
+    "page_count": 1
+  },
+  "ticket_classes": [
+    {
+      "actual_cost": {
+        "display": "\u20ac15.00",
+        "currency": "EUR",
+        "value": 1500,
+        "major_value": "15.00"
+      },
+      "actual_fee": {
+        "display": "\u20ac1.93",
+        "currency": "EUR",
+        "value": 193,
+        "major_value": "1.93"
+      },
+      "cost": {
+        "display": "\u20ac15.00",
+        "currency": "EUR",
+        "value": 1500,
+        "major_value": "15.00"
+      },
+      "fee": {
+        "display": "\u20ac1.93",
+        "currency": "EUR",
+        "value": 193,
+        "major_value": "1.93"
+      },
+      "tax": {
+        "display": "\u20ac0.00",
+        "currency": "EUR",
+        "value": 0,
+        "major_value": "0.00"
+      },
+      "resource_uri": "https://www.eventbriteapi.com/v3/events/27795158066/ticket_classes/54804763/",
+      "name": "Early Bird Developer",
+      "description": "For alle Developer, Machine Learning Experts, Data Scientists and BI Experts in the world!",
+      "donation": false,
+      "free": false,
+      "minimum_quantity": 1,
+      "maximum_quantity": 5,
+      "maximum_quantity_per_order": 5,
+      "on_sale_status": "AVAILABLE",
+      "quantity_total": 35,
+      "quantity_sold": 27,
+      "sales_start": "2016-09-30T22:00:00Z",
+      "sales_end": "2016-11-03T22:30:00Z",
+      "hidden": false,
+      "include_fee": false,
+      "split_fee": false,
+      "hide_description": false,
+      "auto_hide": false,
+      "variants": [],
+      "has_pdf_ticket": true,
+      "sales_channels": [
+        "online",
+        "atd"
+      ],
+      "event_id": "27795158066",
+      "id": "54804763"
+    },
+    {
+      "actual_cost": {
+        "display": "\u20ac15.00",
+        "currency": "EUR",
+        "value": 1500,
+        "major_value": "15.00"
+      },
+      "actual_fee": {
+        "display": "\u20ac1.93",
+        "currency": "EUR",
+        "value": 193,
+        "major_value": "1.93"
+      },
+      "cost": {
+        "display": "\u20ac15.00",
+        "currency": "EUR",
+        "value": 1500,
+        "major_value": "15.00"
+      },
+      "fee": {
+        "display": "\u20ac1.93",
+        "currency": "EUR",
+        "value": 193,
+        "major_value": "1.93"
+      },
+      "tax": {
+        "display": "\u20ac0.00",
+        "currency": "EUR",
+        "value": 0,
+        "major_value": "0.00"
+      },
+      "resource_uri": "https://www.eventbriteapi.com/v3/events/27795158066/ticket_classes/54804764/",
+      "name": "Early Bird Designer",
+      "description": "For all who love to build beautiful and easy to use stuff. ",
+      "donation": false,
+      "free": false,
+      "minimum_quantity": 1,
+      "maximum_quantity": 5,
+      "maximum_quantity_per_order": 5,
+      "on_sale_status": "AVAILABLE",
+      "quantity_total": 10,
+      "quantity_sold": 4,
+      "sales_start": "2016-09-30T22:00:00Z",
+      "sales_end": "2016-11-03T22:30:00Z",
+      "hidden": false,
+      "include_fee": false,
+      "split_fee": false,
+      "hide_description": true,
+      "auto_hide": false,
+      "variants": [],
+      "has_pdf_ticket": true,
+      "sales_channels": [
+        "online",
+        "atd"
+      ],
+      "event_id": "27795158066",
+      "id": "54804764"
+    },
+    {
+      "actual_cost": {
+        "display": "\u20ac15.00",
+        "currency": "EUR",
+        "value": 1500,
+        "major_value": "15.00"
+      },
+      "actual_fee": {
+        "display": "\u20ac1.93",
+        "currency": "EUR",
+        "value": 193,
+        "major_value": "1.93"
+      },
+      "cost": {
+        "display": "\u20ac15.00",
+        "currency": "EUR",
+        "value": 1500,
+        "major_value": "15.00"
+      },
+      "fee": {
+        "display": "\u20ac1.93",
+        "currency": "EUR",
+        "value": 193,
+        "major_value": "1.93"
+      },
+      "tax": {
+        "display": "\u20ac0.00",
+        "currency": "EUR",
+        "value": 0,
+        "major_value": "0.00"
+      },
+      "resource_uri": "https://www.eventbriteapi.com/v3/events/27795158066/ticket_classes/54804765/",
+      "name": "Early Bird Astronaut",
+      "description": "You are no Designer or Coder, but love to develop new innovative ideas and to connect with like-minded people. Then this is your ticket!",
+      "donation": false,
+      "free": false,
+      "minimum_quantity": 1,
+      "maximum_quantity": 5,
+      "maximum_quantity_per_order": 4,
+      "on_sale_status": "AVAILABLE",
+      "quantity_total": 5,
+      "quantity_sold": 1,
+      "sales_start": "2016-09-30T22:00:00Z",
+      "sales_end": "2016-11-03T22:30:00Z",
+      "hidden": false,
+      "include_fee": false,
+      "split_fee": false,
+      "hide_description": true,
+      "auto_hide": false,
+      "variants": [],
+      "has_pdf_ticket": true,
+      "sales_channels": [
+        "online",
+        "atd"
+      ],
+      "event_id": "27795158066",
+      "id": "54804765"
+    }
+  ]
+}
