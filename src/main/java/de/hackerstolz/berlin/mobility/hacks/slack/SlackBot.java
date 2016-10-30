@@ -1,5 +1,6 @@
 package de.hackerstolz.berlin.mobility.hacks.slack;
 
+import de.hackerstolz.berlin.mobility.hacks.eventbrite.Eventbrite;
 import me.ramswaroop.jbot.core.slack.Bot;
 import me.ramswaroop.jbot.core.slack.Controller;
 import me.ramswaroop.jbot.core.slack.EventType;
@@ -7,6 +8,7 @@ import me.ramswaroop.jbot.core.slack.models.Event;
 import me.ramswaroop.jbot.core.slack.models.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketSession;
@@ -24,6 +26,9 @@ public class SlackBot extends Bot {
 
         }
     }
+
+    @Autowired
+    private Eventbrite eventbrite;
 
     /**
      * Slack token from application.properties file. You can get your slack token
@@ -53,7 +58,8 @@ public class SlackBot extends Bot {
      */
     @Controller(events = {EventType.DIRECT_MENTION, EventType.DIRECT_MESSAGE})
     public void onReceiveDM(WebSocketSession session, Event event) {
-        reply(session, event, new Message("Hi, I am " + slackService.getCurrentUser().getName()));
+//        reply(session, event, new Message("Hi, I am " + slackService.getCurrentUser().getName()));
+        reply(session, event, new Message("We sold " + eventbrite.getStats().totalSoldTickets + " tickets!"));
     }
 
     /**
