@@ -30,9 +30,13 @@
                 $('#totalSoldTickets-progress').css('width', '' + data.totalSoldTickets + '%');
 
                 $('#daysUntilHackathon-number').text(data.daysUntilHackathon);
-                $('#ticketSoldByCategory-number').text(data.totalSoldTicketsDeveloper
+                            $('#ticketSoldByCategory-number').text(data.totalSoldTicketsDeveloper
                         + " / " + data.totalSoldTicketsDesigner
                         + " / " + data.totalSoldTicketsAstronaut);
+
+                $('#facebookEvent-number').text(data.facebookNumberInterested
+                        + " / " + data.facebookNumberGoind);
+
 
             }).fail(function (e) {
                 console.error("Error loading data!");
@@ -76,7 +80,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">Facebook INTERESTED / GOING</span>
-                    <span class="info-box-number">??? / ???</span>
+                    <span class="info-box-number" id="facebookEvent-number">??? / ???</span>
                 </div>
             </div>
         </div>
@@ -99,9 +103,9 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">Sales by category</span>
-                    <span class="info-box-number ticketSoldByCategory-number">??? / ??? / ???</span>
+                    <span class="info-box-number" id="ticketSoldByCategory-number">??? / ??? / ???</span>
                     <span class="progress-description">
-                    Dev / Designer / Astronoaut
+                    Dev / Designer / Astro
                   </span>
                 </div>
             </div>

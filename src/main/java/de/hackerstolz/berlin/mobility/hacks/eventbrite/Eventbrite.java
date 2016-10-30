@@ -1,6 +1,7 @@
 package de.hackerstolz.berlin.mobility.hacks.eventbrite;
 
 import de.hackerstolz.berlin.mobility.hacks.MobilityHacksStats;
+import de.hackerstolz.berlin.mobility.hacks.facebook.Facebook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -14,11 +15,14 @@ public class Eventbrite {
 
     private static final String EVENTBRITE_SALES_REPORT_URL = "https://www.eventbriteapi.com/v3/reports/sales/?event_ids=27795158066";
     private static final String EVENTBRITE_ATTENDEES_URL = "https://www.eventbriteapi.com/v3/events/27795158066/attendees/?";
+
     @Autowired
     private RestTemplate restTemplate;
 
-    private MobilityHacksStats mobilityHacksStats;
+    @Autowired
+    private Facebook facebook;
 
+    private MobilityHacksStats mobilityHacksStats;
 
     public void reload() {
         mobilityHacksStats = getMobilityHacksStats();
@@ -43,6 +47,11 @@ public class Eventbrite {
                 result.soldTicketsToday += 1;
             }
         }
+
+        Facebook.FacebookStats facebookStats = facebook.loadFacebookStats();
+        result.facebookNumberGoing = facebookStats.going;
+        result.facebookNumberInterested = facebookStats.interested;
+
         return result;
     }
 

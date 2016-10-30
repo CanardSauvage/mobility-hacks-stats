@@ -36,11 +36,13 @@
             <version>3.0.2</version>
         </dependency>
 
+        <!-- facebook -->
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.4</version>
+            <groupId>com.restfb</groupId>
+            <artifactId>restfb</artifactId>
+            <version>1.33.0</version>
         </dependency>
+
 
         <!-- Tests -->
         <dependency>
