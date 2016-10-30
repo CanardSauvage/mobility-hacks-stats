@@ -47,7 +47,7 @@ public class Eventbrite {
     }
 
     private boolean wasSoldToday(EventbriteAttendee attendee) {
-        return attendee.created.toInstant().isAfter(Instant.now().truncatedTo(ChronoUnit.DAYS));
+        return attendee.getCreatedInstant().isAfter(Instant.now().truncatedTo(ChronoUnit.DAYS));
     }
 
     private EventbriteEventAttendeesResponse loadFullDataFromEvenbriteApi() {

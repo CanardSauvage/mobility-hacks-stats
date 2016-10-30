@@ -59,7 +59,7 @@ public class SlackBot extends Bot {
     @Controller(events = {EventType.DIRECT_MENTION, EventType.DIRECT_MESSAGE})
     public void onReceiveDM(WebSocketSession session, Event event) {
 //        reply(session, event, new Message("Hi, I am " + slackService.getCurrentUser().getName()));
-        reply(session, event, new Message("We sold " + eventbrite.getStats().totalSoldTickets + " tickets!"));
+        reply(session, event, new Message("We sold " + eventbrite.getStats().totalSoldTickets + " tickets overall and today we sold " + eventbrite.getStats().soldTicketsToday + "!"));
     }
 
     /**
