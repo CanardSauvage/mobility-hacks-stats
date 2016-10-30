@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 @Service
@@ -20,7 +22,6 @@ public class Eventbrite {
 
     public void reload() {
         mobilityHacksStats = getMobilityHacksStats();
-
     }
 
     public MobilityHacksStats getStats() {
@@ -31,6 +32,25 @@ public class Eventbrite {
     }
 
     private MobilityHacksStats getMobilityHacksStats() {
+        EventbriteEventAttendeesResponse report = loadFullDataFromEvenbriteApi();
+
+        MobilityHacksStats result = new MobilityHacksStats();
+        result.totalSoldTickets = (long) report.attendees.size();
+
+        for (EventbriteAttendee attendee : report.attendees) {
+            incrementTicketCategories(result, attendee);
+            if (wasSoldToday(attendee)) {
+                result.soldTicketsToday += 1;
+            }
+        }
+        return result;
+    }
+
+    private boolean wasSoldToday(EventbriteAttendee attendee) {
+        return attendee.created.toInstant().isAfter(Instant.now().truncatedTo(ChronoUnit.DAYS));
+    }
+
+    private EventbriteEventAttendeesResponse loadFullDataFromEvenbriteApi() {
         EventbriteEventAttendeesResponse report = restTemplate.getForObject(EVENTBRITE_ATTENDEES_URL, EventbriteEventAttendeesResponse.class);
         report.attendees = new ArrayList<>(report.attendees);
 
@@ -42,22 +62,18 @@ public class Eventbrite {
             EventbriteEventAttendeesResponse report2 = restTemplate.getForObject(EVENTBRITE_ATTENDEES_URL + "page=2", EventbriteEventAttendeesResponse.class);
             report.attendees.addAll(report2.attendees);
         }
+        return report;
+    }
 
-        MobilityHacksStats result;
-        result = new MobilityHacksStats();
-        result.totalSoldTickets = Long.valueOf(report.attendees.size());
-        for (EventbriteAttendee ticketClass : report.attendees) {
-            // Developer Designer Astronaut
-            if (ticketClass.ticket_class_name.toLowerCase().contains("developer")) {
-                result.totalSoldTicketsDeveloper += 1;
-            }
-            if (ticketClass.ticket_class_name.toLowerCase().contains("designer")) {
-                result.totalSoldTicketsDesigner += 1;
-            }
-            if (ticketClass.ticket_class_name.toLowerCase().contains("astronaut")) {
-                result.totalSoldTicketsAstronaut += 1;
-            }
+    private void incrementTicketCategories(MobilityHacksStats result, EventbriteAttendee ticketClass) {
+        if (ticketClass.ticket_class_name.toLowerCase().contains("developer")) {
+            result.totalSoldTicketsDeveloper += 1;
         }
-        return result;
+        if (ticketClass.ticket_class_name.toLowerCase().contains("designer")) {
+            result.totalSoldTicketsDesigner += 1;
+        }
+        if (ticketClass.ticket_class_name.toLowerCase().contains("astronaut")) {
+            result.totalSoldTicketsAstronaut += 1;
+        }
     }
 }

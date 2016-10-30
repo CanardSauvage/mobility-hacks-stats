@@ -16,8 +16,24 @@
     <script>
         $(function () {
             $.get("api/stats", function (data) {
+
+//                    "totalSoldTickets": 32,
+//                        "totalSoldTicketsDeveloper": 27,
+//                        "maxTicketsDeveloper": 70,
+//                        "totalSoldTicketsDesigner": 4,
+//                        "maxTicketsDesigner": 20,
+//                        "totalSoldTicketsAstronaut": 1,
+//                        "maxTicketsAstronaut": 10,
+//                        "daysUntilHackathon": 32
+
                 $('#totalSoldTickets-number').text(data.totalSoldTickets);
                 $('#totalSoldTickets-progress').css('width', '' + data.totalSoldTickets + '%');
+
+                $('#daysUntilHackathon-number').text(data.daysUntilHackathon);
+                $('#ticketSoldByCategory-number').text(data.totalSoldTicketsDeveloper
+                        + " / " + data.totalSoldTicketsDesigner
+                        + " / " + data.totalSoldTicketsAstronaut);
+
             }).fail(function (e) {
                 console.error("Error loading data!");
                 console.error(e);
@@ -69,8 +85,8 @@
                 <span class="info-box-icon bg-red"><i class="ion ion-android-alarm-clock"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">Time until mobility{hacks}</span>
-                    <span class="info-box-number">???</span>
+                    <span class="info-box-text">Days until mobility{hacks}</span>
+                    <span class="info-box-number" id="daysUntilHackathon-number">???</span>
                 </div>
             </div>
         </div>
@@ -83,7 +99,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">Sales by category</span>
-                    <span class="info-box-number">??? / ??? / ???</span>
+                    <span class="info-box-number ticketSoldByCategory-number">??? / ??? / ???</span>
                     <span class="progress-description">
                     Dev / Designer / Astronoaut
                   </span>

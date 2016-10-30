@@ -28,7 +28,6 @@ public class MobilityHacksStatsController {
     @Autowired
     private Eventbrite eventbrite;
 
-
     @Scheduled(fixedRate = FORTY_MINUTES_IN_MS)
     public void work() {
         eventbrite.reload();

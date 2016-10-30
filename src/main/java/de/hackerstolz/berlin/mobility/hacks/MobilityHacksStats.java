@@ -7,6 +7,9 @@ public class MobilityHacksStats {
     @JsonProperty("totalSoldTickets")
     public Long totalSoldTickets = 0L;
 
+    @JsonProperty("soldTicketsToday")
+    public Long soldTicketsToday = 0L;
+
     @JsonProperty("totalSoldTicketsDeveloper")
     public Long totalSoldTicketsDeveloper = 0L;
 
