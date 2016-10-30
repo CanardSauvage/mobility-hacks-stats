@@ -30,12 +30,12 @@
                 $('#totalSoldTickets-progress').css('width', '' + data.totalSoldTickets + '%');
 
                 $('#daysUntilHackathon-number').text(data.daysUntilHackathon);
-                            $('#ticketSoldByCategory-number').text(data.totalSoldTicketsDeveloper
+                $('#ticketSoldByCategory-number').text(data.totalSoldTicketsDeveloper
                         + " / " + data.totalSoldTicketsDesigner
                         + " / " + data.totalSoldTicketsAstronaut);
 
                 $('#facebookEvent-number').text(data.facebookNumberInterested
-                        + " / " + data.facebookNumberGoind);
+                        + " / " + data.facebookNumberGoing);
 
 
             }).fail(function (e) {
