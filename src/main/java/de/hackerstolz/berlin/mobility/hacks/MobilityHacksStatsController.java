@@ -1,28 +1,47 @@
 package de.hackerstolz.berlin.mobility.hacks;
 
+import de.hackerstolz.berlin.mobility.hacks.eventbrite.EventBriteSalesReportResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
-@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(
+
+        path = "api",
+        consumes = {MediaType.ALL_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_JSON_VALUE},
+        produces = MediaType.APPLICATION_JSON_VALUE
+)
 public class MobilityHacksStatsController {
 
-    private static final String CLIENT_SECRET = "EXB3NWYCJVNR6D7MYRNIUXUTL6L6LCKRTY23GCNYXM7PYG54FV";
-    private static final String PERSONAL_OAUTH_TOKEN = "5GKKIH5SCP3KQHQEVZGK";
-    private static final String ANONYMOUS_ACCESS_OAUTH_TOKEN = "SEZZGLDJJHBDEBTRDBEN";
+    private static final String EVENTBRITE_SALES_REPORT_URL = "https://www.eventbriteapi.com/v3/reports/sales/?event_ids=27795158066";
 
+    @Autowired
+    private RestTemplate restTemplate;
 
-    //https://www.eventbriteapi.com/v3/users/me/?token=5GKKIH5SCP3KQHQEVZGK
-    //https://www.eventbriteapi.com/v3/reports/sales/?token=5GKKIH5SCP3KQHQEVZGK&event_ids=27795158066
+    private MobilityHacksStats mobilityHacksStats;
 
-
-    @RequestMapping(value = "/api/stats", method = RequestMethod.POST, consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(
+            value = "/stats",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
     @ResponseStatus(HttpStatus.OK)
     public MobilityHacksStats getStats() {
+        EventBriteSalesReportResponse report = restTemplate.getForObject(EVENTBRITE_SALES_REPORT_URL, EventBriteSalesReportResponse.class);
 
+        MobilityHacksStats result = mobilityHacksStats;
+        if (result == null) {
+            result = new MobilityHacksStats();
+            result.totalSoldTickets = report.totals.quantity;
+            mobilityHacksStats = result;
+        }
+
+        return result;
     }
 }
