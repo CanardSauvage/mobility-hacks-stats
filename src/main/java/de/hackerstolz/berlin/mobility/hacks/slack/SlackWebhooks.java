@@ -40,7 +40,10 @@ public class SlackWebhooks {
         MobilityHacksStats stats = eventbrite.getStats();
         if (stats.soldTicketsLastHour > 0) {
             RestTemplate restTemplate = new RestTemplate();
+
             RichMessage richMessage = new RichMessage("Yeah we sold TICKETS!!! This hour we sold " + stats.soldTicketsLastHour + " ticket(s).");
+            richMessage.setUsername("mobility-hacks-bot");
+            richMessage.setIconEmoji(":money_with_wings:");
             restTemplate.postForEntity(slackIncomingWebhookUrl, richMessage.encodedMessage(), String.class);
         }
     }
