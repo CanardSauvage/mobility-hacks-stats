@@ -1,6 +1,10 @@
 # mobility{hacks} dashboard
 
-* You will need a set property "EVENTBRITE_PERSONAL_OAUTH_TOKEN"
+* You will need to set some properties
+    * EVENTBRITE_PERSONAL_OAUTH_TOKEN
+    * facebookAppId
+    * facebookAppSecret
+    * slackBotToken
 
 ## Getting started
 

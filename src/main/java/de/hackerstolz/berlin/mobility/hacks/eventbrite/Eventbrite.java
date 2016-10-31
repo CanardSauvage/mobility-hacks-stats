@@ -2,6 +2,7 @@ package de.hackerstolz.berlin.mobility.hacks.eventbrite;
 
 import de.hackerstolz.berlin.mobility.hacks.MobilityHacksStats;
 import de.hackerstolz.berlin.mobility.hacks.facebook.Facebook;
+import de.hackerstolz.berlin.mobility.hacks.facebook.FacebookStats;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -48,7 +49,7 @@ public class Eventbrite {
             }
         }
 
-        Facebook.FacebookStats facebookStats = facebook.loadFacebookStats();
+        FacebookStats facebookStats = facebook.loadFacebookStats();
         result.facebookNumberGoing = facebookStats.going;
         result.facebookNumberInterested = facebookStats.interested;
 
