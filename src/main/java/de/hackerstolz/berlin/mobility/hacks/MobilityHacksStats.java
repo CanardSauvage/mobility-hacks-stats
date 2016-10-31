@@ -10,6 +10,9 @@ public class MobilityHacksStats {
     @JsonProperty("soldTicketsToday")
     public Long soldTicketsToday = 0L;
 
+    @JsonProperty("soldTicketsLastHour")
+    public Long soldTicketsLastHour = 0L;
+
     @JsonProperty("totalSoldTicketsDeveloper")
     public Long totalSoldTicketsDeveloper = 0L;
 

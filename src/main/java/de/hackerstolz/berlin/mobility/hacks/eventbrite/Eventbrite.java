@@ -4,6 +4,7 @@ import de.hackerstolz.berlin.mobility.hacks.MobilityHacksStats;
 import de.hackerstolz.berlin.mobility.hacks.facebook.Facebook;
 import de.hackerstolz.berlin.mobility.hacks.facebook.FacebookStats;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -25,6 +26,7 @@ public class Eventbrite {
 
     private MobilityHacksStats mobilityHacksStats;
 
+    @Scheduled(fixedRate = 20 * 60 * 1000)
     public void reload() {
         mobilityHacksStats = getMobilityHacksStats();
     }
@@ -47,6 +49,9 @@ public class Eventbrite {
             if (wasSoldToday(attendee)) {
                 result.soldTicketsToday += 1;
             }
+            if (wasSoldInThisHour(attendee)) {
+                result.soldTicketsLastHour += 1;
+            }
         }
 
         FacebookStats facebookStats = facebook.loadFacebookStats();
@@ -58,6 +63,10 @@ public class Eventbrite {
 
     private boolean wasSoldToday(EventbriteAttendee attendee) {
         return attendee.getCreatedInstant().isAfter(Instant.now().truncatedTo(ChronoUnit.DAYS));
+    }
+
+    private boolean wasSoldInThisHour(EventbriteAttendee attendee) {
+        return attendee.getCreatedInstant().isAfter(Instant.now().truncatedTo(ChronoUnit.HOURS));
     }
 
     private EventbriteEventAttendeesResponse loadFullDataFromEvenbriteApi() {
