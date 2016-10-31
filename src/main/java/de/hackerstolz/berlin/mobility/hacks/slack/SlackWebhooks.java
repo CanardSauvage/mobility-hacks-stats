@@ -1,17 +1,15 @@
 package de.hackerstolz.berlin.mobility.hacks.slack;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import me.ramswaroop.jbot.core.slack.models.Attachment;
+import de.hackerstolz.berlin.mobility.hacks.MobilityHacksStats;
+import de.hackerstolz.berlin.mobility.hacks.eventbrite.Eventbrite;
 import me.ramswaroop.jbot.core.slack.models.RichMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-
-import javax.annotation.PostConstruct;
 
 /**
  * This is a Slack Webhook sample. Webhooks are nothing but POST calls to
@@ -33,31 +31,40 @@ public class SlackWebhooks {
     @Value("${slackIncomingWebhookUrl}")
     private String slackIncomingWebhookUrl;
 
-    /**
-     * Make a POST call to the incoming webhook url.
-     */
-    @PostConstruct
-    public void invokeSlackWebhook() {
-        RestTemplate restTemplate = new RestTemplate();
-        RichMessage richMessage = new RichMessage("Just to test Slack's incoming webhooks.");
-        // set attachments
-        Attachment[] attachments = new Attachment[1];
-        attachments[0] = new Attachment();
-        attachments[0].setText("Some data relevant to your users.");
-        richMessage.setAttachments(attachments);
+    @Autowired
+    private Eventbrite eventbrite;
 
-        // For debugging purpose only
-        try {
-            logger.debug("Reply (RichMessage): {}", new ObjectMapper().writeValueAsString(richMessage));
-        } catch (JsonProcessingException e) {
-            logger.debug("Error parsing RichMessage: ", e);
-        }
 
-        // Always remember to send the encoded message to Slack
-        try {
+    @Scheduled(fixedRate = 59 * 60 * 1000)
+    public void publishStats() {
+        MobilityHacksStats stats = eventbrite.getStats();
+        if (stats.soldTicketsLastHour > 0) {
+            RestTemplate restTemplate = new RestTemplate();
+            RichMessage richMessage = new RichMessage("Yeah we sold TICKETS!!! This hour we sold " + stats.soldTicketsLastHour + " ticket(s).");
             restTemplate.postForEntity(slackIncomingWebhookUrl, richMessage.encodedMessage(), String.class);
-        } catch (RestClientException e) {
-            logger.error("Error posting to Slack Incoming Webhook: ", e);
         }
     }
+
+//
+//    /**
+//     * Make a POST call to the incoming webhook url.
+//     */
+//    @PostConstruct
+//    public void invokeSlackWebhook() {
+//        RestTemplate restTemplate = new RestTemplate();
+//        RichMessage richMessage = new RichMessage("Just to test Slack's incoming webhooks.");
+//        // set attachments
+//        Attachment[] attachments = new Attachment[1];
+//        attachments[0] = new Attachment();
+//        attachments[0].setText("Some data relevant to your users.");
+//        richMessage.setAttachments(attachments);
+//
+//
+//        // Always remember to send the encoded message to Slack
+//        try {
+//            restTemplate.postForEntity(slackIncomingWebhookUrl, richMessage.encodedMessage(), String.class);
+//        } catch (RestClientException e) {
+//            logger.error("Error posting to Slack Incoming Webhook: ", e);
+//        }
+//    }
 }

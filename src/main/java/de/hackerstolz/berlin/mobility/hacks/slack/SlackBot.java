@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -42,18 +41,6 @@ public class SlackBot extends Bot {
         return this;
     }
 
-    @Scheduled(fixedRate = 10 * 60 * 1000)
-    public void publishStats() {
-        MobilityHacksStats stats = eventbrite.getStats();
-        if (stats.soldTicketsLastHour > 0) {
-            // FIXME ??? What to do?
-            LOG.info("####################");
-            LOG.info("WE SOLD A TICKET!!!!");
-            LOG.info("####################");
-        }
-    }
-
-
     /**
      * Invoked when the bot receives a direct mention (@botname: message)
      * or a direct message. NOTE: These two event types are added by jbot
@@ -66,7 +53,7 @@ public class SlackBot extends Bot {
     @Controller(events = {EventType.DIRECT_MENTION, EventType.DIRECT_MESSAGE})
     public void onReceiveDM(WebSocketSession session, Event event) {
         MobilityHacksStats stats = eventbrite.getStats();
-        reply(session, event, new Message("We sold " + stats.totalSoldTickets + " tickets overall and today we sold " + stats.soldTicketsToday + "!"));
+        reply(session, event, new Message("We sold " + stats.totalSoldTickets + " tickets overall and today we sold " + stats.soldTicketsToday + "! Want to know more? Say 'full stats'."));
     }
 
     /**
@@ -77,12 +64,20 @@ public class SlackBot extends Bot {
      * @param session
      * @param event
      */
-    @Controller(events = EventType.MESSAGE, pattern = "^([a-z ]{2})(\\d+)([a-z ]{2})$")
+    @Controller(events = EventType.MESSAGE, pattern = "(full stats)")
     public void onReceiveMessage(WebSocketSession session, Event event, Matcher matcher) {
-        reply(session, event, new Message("First group: " + matcher.group(0) + "\n" +
-                "Second group: " + matcher.group(1) + "\n" +
-                "Third group: " + matcher.group(2) + "\n" +
-                "Fourth group: " + matcher.group(3)));
+        MobilityHacksStats stats = eventbrite.getStats();
+
+        String answer = "Our current full stats:\n" +
+                "we sold " + stats.totalSoldTickets + " tickets overall, " +
+                "" + stats.soldTicketsToday + " today, " +
+                "" + stats.soldTicketsLastHour + " in the last hour.\n" +
+                "And by Dev/Designer/Astronaut we sold " +
+                stats.totalSoldTicketsDeveloper + " / " + stats.totalSoldTicketsDesigner + " / " + stats.totalSoldTicketsAstronaut + ".\n" +
+                "We have *" + stats.daysUntilHackathon + "* days until the Hackathon.\n" +
+                "" + stats.facebookNumberInterested + " people are interested in our facebook event and "
+                + stats.facebookNumberGoing + " people say they are going.";
+        reply(session, event, new Message(answer));
     }
 
     /**

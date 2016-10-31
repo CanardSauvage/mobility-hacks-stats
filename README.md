@@ -5,6 +5,7 @@
     * facebookAppId
     * facebookAppSecret
     * slackBotToken
+    * slackIncomingWebhookUrl
 
 ## Getting started
 
