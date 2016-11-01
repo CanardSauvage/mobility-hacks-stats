@@ -53,7 +53,7 @@ public class SlackBot extends Bot {
     @Controller(events = {EventType.DIRECT_MENTION, EventType.DIRECT_MESSAGE})
     public void onReceiveDM(WebSocketSession session, Event event) {
         try {
-            LOG.info("Received DirectMessage: " + event.getText() + " from " + event.getUser().getName());
+            LOG.info("Received DirectMessage: " + event.getText() + " from " + getUserName(event));
             MobilityHacksStats stats = eventbrite.getStats();
             reply(session, event, new Message("We sold " + stats.totalSoldTickets + " tickets overall and today we sold " + stats.soldTicketsToday + "! Want to know more? Say 'full stats'."));
         } catch (Exception e) {
@@ -74,7 +74,7 @@ public class SlackBot extends Bot {
         try {
             MobilityHacksStats stats = eventbrite.getStats();
 
-            LOG.info("Received Message: " + event.getText() + " from " + event.getUser().getName() + " with mather " + matcher.group());
+            LOG.info("Received Message: " + event.getText() + " from " + getUserName(event) + " with mather " + matcher.group());
 
             String answer = "Our current full stats:\n" +
                     "we sold " + stats.totalSoldTickets + " tickets overall, " +
@@ -89,6 +89,13 @@ public class SlackBot extends Bot {
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
         }
+    }
+
+    private String getUserName(Event event) {
+        if (event.getUser() != null) {
+            return event.getUser().getName();
+        }
+        return event.getUserId();
     }
 
     /**
