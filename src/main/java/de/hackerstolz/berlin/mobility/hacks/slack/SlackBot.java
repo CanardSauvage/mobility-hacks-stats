@@ -52,8 +52,13 @@ public class SlackBot extends Bot {
      */
     @Controller(events = {EventType.DIRECT_MENTION, EventType.DIRECT_MESSAGE})
     public void onReceiveDM(WebSocketSession session, Event event) {
-        MobilityHacksStats stats = eventbrite.getStats();
-        reply(session, event, new Message("We sold " + stats.totalSoldTickets + " tickets overall and today we sold " + stats.soldTicketsToday + "! Want to know more? Say 'full stats'."));
+        try {
+            LOG.info("Received DirectMessage: " + event.getText() + " from " + event.getUser().getName());
+            MobilityHacksStats stats = eventbrite.getStats();
+            reply(session, event, new Message("We sold " + stats.totalSoldTickets + " tickets overall and today we sold " + stats.soldTicketsToday + "! Want to know more? Say 'full stats'."));
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
     }
 
     /**
@@ -66,18 +71,24 @@ public class SlackBot extends Bot {
      */
     @Controller(events = EventType.MESSAGE, pattern = "(full stats)")
     public void onReceiveMessage(WebSocketSession session, Event event, Matcher matcher) {
-        MobilityHacksStats stats = eventbrite.getStats();
+        try {
+            MobilityHacksStats stats = eventbrite.getStats();
 
-        String answer = "Our current full stats:\n" +
-                "we sold " + stats.totalSoldTickets + " tickets overall, " +
-                "" + stats.soldTicketsToday + " today, " +
-                "" + stats.soldTicketsLastHour + " in the last hour.\n" +
-                "And by Dev/Designer/Astronaut we sold " +
-                stats.totalSoldTicketsDeveloper + " / " + stats.totalSoldTicketsDesigner + " / " + stats.totalSoldTicketsAstronaut + ".\n" +
-                "We have *" + stats.daysUntilHackathon + "* days until the Hackathon.\n" +
-                "" + stats.facebookNumberInterested + " people are interested in our facebook event and "
-                + stats.facebookNumberGoing + " people say they are going.";
-        reply(session, event, new Message(answer));
+            LOG.info("Received Message: " + event.getText() + " from " + event.getUser().getName() + " with mather " + matcher.group());
+
+            String answer = "Our current full stats:\n" +
+                    "we sold " + stats.totalSoldTickets + " tickets overall, " +
+                    "" + stats.soldTicketsToday + " today, " +
+                    "" + stats.soldTicketsLastHour + " in the last hour.\n" +
+                    "And by Dev/Designer/Astronaut we sold " +
+                    stats.totalSoldTicketsDeveloper + " / " + stats.totalSoldTicketsDesigner + " / " + stats.totalSoldTicketsAstronaut + ".\n" +
+                    "We have *" + stats.daysUntilHackathon + "* days until the Hackathon.\n" +
+                    "" + stats.facebookNumberInterested + " people are interested in our facebook event and "
+                    + stats.facebookNumberGoing + " people say they are going.";
+            reply(session, event, new Message(answer));
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
     }
 
     /**

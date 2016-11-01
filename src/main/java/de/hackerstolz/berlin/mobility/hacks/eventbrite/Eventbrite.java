@@ -28,17 +28,22 @@ public class Eventbrite {
 
     @Scheduled(fixedRate = 20 * 60 * 1000)
     public void reload() {
-        mobilityHacksStats = getMobilityHacksStats();
+        mobilityHacksStats = loadMobilityHacksStats();
     }
 
     public MobilityHacksStats getStats() {
         if (mobilityHacksStats == null) {
-            mobilityHacksStats = getMobilityHacksStats();
+            mobilityHacksStats = loadMobilityHacksStats();
         }
         return mobilityHacksStats;
     }
 
-    private MobilityHacksStats getMobilityHacksStats() {
+    public MobilityHacksStats getNewStats() {
+        mobilityHacksStats = null;
+        return getStats();
+    }
+
+    private MobilityHacksStats loadMobilityHacksStats() {
         EventbriteEventAttendeesResponse report = loadFullDataFromEvenbriteApi();
 
         MobilityHacksStats result = new MobilityHacksStats();
@@ -49,7 +54,7 @@ public class Eventbrite {
             if (wasSoldToday(attendee)) {
                 result.soldTicketsToday += 1;
             }
-            if (wasSoldInThisHour(attendee)) {
+            if (wasSoldInTheLastSixtyMinutes(attendee)) {
                 result.soldTicketsLastHour += 1;
             }
         }
@@ -65,8 +70,9 @@ public class Eventbrite {
         return attendee.getCreatedInstant().isAfter(Instant.now().truncatedTo(ChronoUnit.DAYS));
     }
 
-    private boolean wasSoldInThisHour(EventbriteAttendee attendee) {
-        return attendee.getCreatedInstant().isAfter(Instant.now().truncatedTo(ChronoUnit.HOURS));
+    private boolean wasSoldInTheLastSixtyMinutes(EventbriteAttendee attendee) {
+        Instant createdInstant = attendee.getCreatedInstant();
+        return createdInstant.isAfter(Instant.now().minus(61, ChronoUnit.MINUTES));
     }
 
     private EventbriteEventAttendeesResponse loadFullDataFromEvenbriteApi() {
@@ -95,4 +101,6 @@ public class Eventbrite {
             result.totalSoldTicketsAstronaut += 1;
         }
     }
+
+
 }

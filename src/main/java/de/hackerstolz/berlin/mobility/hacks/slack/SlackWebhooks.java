@@ -21,7 +21,7 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class SlackWebhooks {
 
-    private static final Logger logger = LoggerFactory.getLogger(SlackWebhooks.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SlackWebhooks.class);
 
     /**
      * The Url you get while configuring a new incoming webhook
@@ -35,16 +35,24 @@ public class SlackWebhooks {
     private Eventbrite eventbrite;
 
 
-    @Scheduled(fixedRate = 59 * 60 * 1000)
+    @Scheduled(fixedRate = 60 * 60 * 1000)
     public void publishStats() {
-        MobilityHacksStats stats = eventbrite.getStats();
-        if (stats.soldTicketsLastHour > 0) {
-            RestTemplate restTemplate = new RestTemplate();
+        LOG.info("Publish stats called!");
 
-            RichMessage richMessage = new RichMessage("Yeah we sold TICKETS!!! This hour we sold " + stats.soldTicketsLastHour + " ticket(s).");
-            richMessage.setUsername("mobility-hacks-bot");
-            richMessage.setIconEmoji(":money_with_wings:");
-            restTemplate.postForEntity(slackIncomingWebhookUrl, richMessage.encodedMessage(), String.class);
+        try {
+            MobilityHacksStats stats = eventbrite.getNewStats();
+            if (stats.soldTicketsLastHour > 0) {
+                LOG.info("Publish stats: We sold " + stats.soldTicketsLastHour + " tickets in the last hour!");
+
+                RestTemplate restTemplate = new RestTemplate();
+
+                RichMessage richMessage = new RichMessage("Yeah we sold TICKETS!!! This hour we sold " + stats.soldTicketsLastHour + " ticket(s).");
+                richMessage.setUsername("mobility-hacks-bot");
+                richMessage.setIconEmoji(":money_with_wings:");
+                restTemplate.postForEntity(slackIncomingWebhookUrl, richMessage.encodedMessage(), String.class);
+            }
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
         }
     }
 
