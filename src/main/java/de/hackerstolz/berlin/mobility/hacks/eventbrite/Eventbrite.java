@@ -3,17 +3,22 @@ package de.hackerstolz.berlin.mobility.hacks.eventbrite;
 import de.hackerstolz.berlin.mobility.hacks.MobilityHacksStats;
 import de.hackerstolz.berlin.mobility.hacks.facebook.Facebook;
 import de.hackerstolz.berlin.mobility.hacks.facebook.FacebookStats;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 @Service
 public class Eventbrite {
+
+    private static final Logger LOG = LoggerFactory.getLogger(Eventbrite.class);
 
     private static final String EVENTBRITE_SALES_REPORT_URL = "https://www.eventbriteapi.com/v3/reports/sales/?event_ids=27795158066";
     private static final String EVENTBRITE_ATTENDEES_URL = "https://www.eventbriteapi.com/v3/events/27795158066/attendees/?";
@@ -28,6 +33,7 @@ public class Eventbrite {
 
     @Scheduled(fixedRate = 20 * 60 * 1000)
     public void reload() {
+        LOG.info("Reloading Stats");
         mobilityHacksStats = loadMobilityHacksStats();
     }
 
@@ -72,7 +78,7 @@ public class Eventbrite {
 
     private boolean wasSoldInTheLastSixtyMinutes(EventbriteAttendee attendee) {
         Instant createdInstant = attendee.getCreatedInstant();
-        return createdInstant.isAfter(Instant.now().minus(61, ChronoUnit.MINUTES));
+        return createdInstant.isAfter(Instant.now().minus(Duration.ofMinutes(61)));
     }
 
     private EventbriteEventAttendeesResponse loadFullDataFromEvenbriteApi() {
