@@ -1,13 +1,15 @@
 package de.hackerstolz.berlin.mobility.hacks;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.time.Instant;
+import java.util.Date;
 
 public class MobilityHacksStats {
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX", timezone = "Europe/Berlin")
     @JsonProperty("lastUpdateTime")
-    public Instant lastUpdateTime = Instant.now();
+    public Date lastUpdateTime = new Date();
 
     @JsonProperty("totalSoldTickets")
     public Long totalSoldTickets = 0L;
