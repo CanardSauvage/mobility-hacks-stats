@@ -2,7 +2,12 @@ package de.hackerstolz.berlin.mobility.hacks;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.Instant;
+
 public class MobilityHacksStats {
+
+    @JsonProperty("lastUpdateTime")
+    public Instant lastUpdateTime = Instant.now();
 
     @JsonProperty("totalSoldTickets")
     public Long totalSoldTickets = 0L;
