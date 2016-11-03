@@ -61,7 +61,6 @@ public class Eventbrite {
             if (wasSoldToday(attendee)) {
                 result.soldTicketsToday += 1;
             }
-            LOG.info(attendee.toString());
             if (wasSoldInTheLastSixtyMinutes(attendee)) {
                 LOG.info("wasSoldInTheLastSixtyMinutes!!!");
                 result.soldTicketsLastHour += 1;
