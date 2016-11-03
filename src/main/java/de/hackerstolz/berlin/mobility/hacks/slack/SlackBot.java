@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.util.regex.Matcher;
@@ -75,6 +76,9 @@ public class SlackBot extends Bot {
             MobilityHacksStats stats = eventbrite.getStats();
 
             String text = event.getText();
+            if (StringUtils.isEmpty(text)) {
+                return;
+            }
             if (text.startsWith("Our current full stats") || text.startsWith("We sold")) {
                 LOG.info("Received message from myself. Skipping.");
                 return;
