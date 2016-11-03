@@ -32,4 +32,12 @@ public class EventbriteAttendee {
     @JsonProperty("ticket_class_name")
     public String ticket_class_name;
 
+    @Override
+    public String toString() {
+        return "EventbriteAttendee{" +
+                "created='" + created + '\'' +
+                ", createdDate=" + createdDate +
+                ", ticket_class_name='" + ticket_class_name + '\'' +
+                '}';
+    }
 }
