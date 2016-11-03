@@ -1,9 +1,11 @@
-package de.hackerstolz.berlin.mobility.hacks;
+package de.hackerstolz.berlin.mobility.hacks.mobilityhacks;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class MobilityHacksStats {
 
@@ -46,4 +48,7 @@ public class MobilityHacksStats {
 
     @JsonProperty("facebookNumberGoing")
     public Long facebookNumberGoing = 0L;
+
+    @JsonProperty("tickets")
+    public List<MobilityHacksTicket> tickets = new ArrayList<>();
 }

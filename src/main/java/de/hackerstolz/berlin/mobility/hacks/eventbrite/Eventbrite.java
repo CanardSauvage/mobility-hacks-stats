@@ -1,8 +1,9 @@
 package de.hackerstolz.berlin.mobility.hacks.eventbrite;
 
-import de.hackerstolz.berlin.mobility.hacks.MobilityHacksStats;
 import de.hackerstolz.berlin.mobility.hacks.facebook.Facebook;
 import de.hackerstolz.berlin.mobility.hacks.facebook.FacebookStats;
+import de.hackerstolz.berlin.mobility.hacks.mobilityhacks.MobilityHacksStats;
+import de.hackerstolz.berlin.mobility.hacks.mobilityhacks.MobilityHacksTicket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Service
 public class Eventbrite {
@@ -73,12 +74,15 @@ public class Eventbrite {
     }
 
     private boolean wasSoldToday(EventbriteAttendee attendee) {
-        return attendee.getCreatedInstant().isAfter(Instant.now().truncatedTo(ChronoUnit.DAYS));
+        return attendee.getCreatedDate().toInstant().isAfter(Instant.now().truncatedTo(ChronoUnit.DAYS));
     }
 
     private boolean wasSoldInTheLastSixtyMinutes(EventbriteAttendee attendee) {
-        Instant createdInstant = attendee.getCreatedInstant();
-        return createdInstant.isAfter(Instant.now().minus(Duration.ofMinutes(61)));
+        Date date = attendee.getCreatedDate();
+        Date now = new Date();
+        long differenceInMillis = now.getTime() - date.getTime();
+        long differenceInHours = (differenceInMillis) / 1000L / 60L / 60L; // Divide by millis/sec, secs/min, mins/hr
+        return differenceInHours <= 1;
     }
 
     private EventbriteEventAttendeesResponse loadFullDataFromEvenbriteApi() {
@@ -96,16 +100,22 @@ public class Eventbrite {
         return report;
     }
 
-    private void incrementTicketCategories(MobilityHacksStats result, EventbriteAttendee ticketClass) {
-        if (ticketClass.ticket_class_name.toLowerCase().contains("developer")) {
+    private void incrementTicketCategories(MobilityHacksStats result, EventbriteAttendee attendee) {
+        MobilityHacksTicket e = new MobilityHacksTicket();
+        e.soldTime = attendee.createdDate;
+        if (attendee.ticket_class_name.toLowerCase().contains("developer")) {
             result.totalSoldTicketsDeveloper += 1;
+            e.category = "developer";
         }
-        if (ticketClass.ticket_class_name.toLowerCase().contains("designer")) {
+        if (attendee.ticket_class_name.toLowerCase().contains("designer")) {
             result.totalSoldTicketsDesigner += 1;
+            e.category = "designer";
         }
-        if (ticketClass.ticket_class_name.toLowerCase().contains("astronaut")) {
+        if (attendee.ticket_class_name.toLowerCase().contains("astronaut")) {
             result.totalSoldTicketsAstronaut += 1;
+            e.category = "astronaut";
         }
+        result.tickets.add(e);
     }
 
 

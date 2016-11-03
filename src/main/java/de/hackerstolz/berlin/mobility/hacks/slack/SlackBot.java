@@ -1,6 +1,6 @@
 package de.hackerstolz.berlin.mobility.hacks.slack;
 
-import de.hackerstolz.berlin.mobility.hacks.MobilityHacksStats;
+import de.hackerstolz.berlin.mobility.hacks.mobilityhacks.MobilityHacksStats;
 import de.hackerstolz.berlin.mobility.hacks.eventbrite.Eventbrite;
 import me.ramswaroop.jbot.core.slack.Bot;
 import me.ramswaroop.jbot.core.slack.Controller;
