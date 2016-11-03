@@ -14,9 +14,10 @@ public class EventbriteAttendee {
 //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-ddTHH:mm:ssZ", timezone = "Europe/Berlin")
 //    public Date created;
 
+    @JsonProperty("created")
     public String created;
 
-    public Date createdDate;
+    private Date createdDate;
 
     public Date getCreatedDate() {
         if (createdDate == null) {

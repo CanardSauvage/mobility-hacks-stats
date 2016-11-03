@@ -103,21 +103,21 @@ public class Eventbrite {
     }
 
     private void incrementTicketCategories(MobilityHacksStats result, EventbriteAttendee attendee) {
-        MobilityHacksTicket e = new MobilityHacksTicket();
-        e.soldTime = attendee.createdDate;
+        MobilityHacksTicket ticket = new MobilityHacksTicket();
+        ticket.soldTime = attendee.getCreatedDate();
         if (attendee.ticket_class_name.toLowerCase().contains("developer")) {
             result.totalSoldTicketsDeveloper += 1;
-            e.category = "developer";
+            ticket.category = "developer";
         }
         if (attendee.ticket_class_name.toLowerCase().contains("designer")) {
             result.totalSoldTicketsDesigner += 1;
-            e.category = "designer";
+            ticket.category = "designer";
         }
         if (attendee.ticket_class_name.toLowerCase().contains("astronaut")) {
             result.totalSoldTicketsAstronaut += 1;
-            e.category = "astronaut";
+            ticket.category = "astronaut";
         }
-        result.tickets.add(e);
+        result.tickets.add(ticket);
     }
 
 
