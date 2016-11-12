@@ -17,15 +17,6 @@
         $(function () {
             $.get("api/stats", function (data) {
 
-//                    "totalSoldTickets": 32,
-//                        "totalSoldTicketsDeveloper": 27,
-//                        "maxTicketsDeveloper": 70,
-//                        "totalSoldTicketsDesigner": 4,
-//                        "maxTicketsDesigner": 20,
-//                        "totalSoldTicketsAstronaut": 1,
-//                        "maxTicketsAstronaut": 10,
-//                        "daysUntilHackathon": 32
-
                 $('#totalSoldTickets-number').text(data.totalSoldTickets);
                 $('#totalSoldTickets-progress').css('width', '' + data.totalSoldTickets + '%');
 

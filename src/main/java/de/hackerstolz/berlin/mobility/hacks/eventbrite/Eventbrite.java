@@ -63,12 +63,12 @@ public class Eventbrite {
         EventbriteEventAttendeesResponse report = restTemplate.getForObject(EVENTBRITE_ATTENDEES_URL, EventbriteEventAttendeesResponse.class);
         report.attendees = new ArrayList<>(report.attendees);
 
-        if (report.pagination.page_count > 1) {
-            EventbriteEventAttendeesResponse report2 = restTemplate.getForObject(EVENTBRITE_ATTENDEES_URL + "page=1", EventbriteEventAttendeesResponse.class);
-            report.attendees.addAll(report2.attendees);
-        }
         if (report.pagination.page_count >= 2) {
             EventbriteEventAttendeesResponse report2 = restTemplate.getForObject(EVENTBRITE_ATTENDEES_URL + "page=2", EventbriteEventAttendeesResponse.class);
+            report.attendees.addAll(report2.attendees);
+        }
+        if (report.pagination.page_count >= 3) {
+            EventbriteEventAttendeesResponse report2 = restTemplate.getForObject(EVENTBRITE_ATTENDEES_URL + "page=3", EventbriteEventAttendeesResponse.class);
             report.attendees.addAll(report2.attendees);
         }
         return report;
