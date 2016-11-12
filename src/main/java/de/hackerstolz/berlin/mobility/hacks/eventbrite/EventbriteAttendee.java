@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.text.SimpleDateFormat;
-import java.time.Instant;
+import java.util.Date;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EventbriteAttendee {
@@ -14,22 +14,31 @@ public class EventbriteAttendee {
 //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-ddTHH:mm:ssZ", timezone = "Europe/Berlin")
 //    public Date created;
 
+    @JsonProperty("created")
     public String created;
 
-    public Instant createdInstant;
+    private Date createdDate;
 
-    public Instant getCreatedInstant() {
-        if (createdInstant == null) {
+    public Date getCreatedDate() {
+        if (createdDate == null) {
             try {
-                createdInstant = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse(created).toInstant();
+                createdDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse(created);
             } catch (Exception e) {
                 throw new RuntimeException(e.getMessage(), e);
             }
         }
-        return createdInstant;
+        return createdDate;
     }
 
     @JsonProperty("ticket_class_name")
     public String ticket_class_name;
 
+    @Override
+    public String toString() {
+        return "EventbriteAttendee{" +
+                "created='" + created + '\'' +
+                ", createdDate=" + createdDate +
+                ", ticket_class_name='" + ticket_class_name + '\'' +
+                '}';
+    }
 }
