@@ -112,7 +112,7 @@ public class Eventbrite {
             result.totalSoldTicketsDesigner += 1;
             ticket.category = "designer";
         }
-        if (attendee.ticket_class_name.toLowerCase().contains("astronaut")) {
+        if (attendee.ticket_class_name.toLowerCase().contains("astronaut") || attendee.ticket_class_name.toLowerCase().contains("expert") || attendee.ticket_class_name.toLowerCase().contains("business")) {
             result.totalSoldTicketsAstronaut += 1;
             ticket.category = "astronaut";
         }
