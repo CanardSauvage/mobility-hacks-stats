@@ -17,6 +17,12 @@ public class EventbriteAttendee {
     @JsonProperty("created")
     public String created;
 
+    @JsonProperty("cancelled")
+    public boolean cancelled;
+
+    @JsonProperty("refunded")
+    public boolean refunded;
+
     private Date createdDate;
 
     public Date getCreatedDate() {

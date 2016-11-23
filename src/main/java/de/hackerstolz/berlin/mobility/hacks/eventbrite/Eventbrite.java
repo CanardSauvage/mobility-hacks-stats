@@ -15,6 +15,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 @Service
 public class Eventbrite {
@@ -98,6 +99,12 @@ public class Eventbrite {
             EventbriteEventAttendeesResponse report2 = restTemplate.getForObject(EVENTBRITE_ATTENDEES_URL + "page=3", EventbriteEventAttendeesResponse.class);
             report.attendees.addAll(report2.attendees);
         }
+
+        report.attendees = report.attendees.stream()
+                .filter(e -> !e.cancelled)
+                .filter(e -> !e.refunded)
+                .collect(Collectors.toList());
+
         return report;
     }
 
