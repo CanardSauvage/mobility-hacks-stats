@@ -1,0 +1,137 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <style type="text/css">
+        body {
+            padding-top: 120px;
+            background-color: rgb(27, 27, 27);
+        }
+
+        h1 {
+            display: inline-block;
+            margin: 10px 20px;
+            font-size: 146px;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<!-- Add your site or application content here -->
+<div style="margin-top: 120px; margin: 0 auto; text-align: center; width: 100%; display: block;">
+    <img src="http://www.mobility-hacks.de/app/js/views/Station-01-Hero/img/mobility_logo.svg?1b804695f8b6f586bf987edecb1e841d"><br/><br/>
+    <h1 class="day"></h1>
+    <h1 class="hour"></h1>
+    <h1 class="minutes"></h1>
+    <h1 class="seconds"></h1>
+    <br/>
+    <br/>
+    <h2 class="first"></h2>
+    <h2 class="second"></h2>
+    <h2 class="sixteen"></h2>
+    <h2 class="eighteen"></h2>
+    <h2 class="twentyone"></h2>
+    <h2 class="twentythree"></h2>
+    <h2 class="zero"></h2>
+    <h2 class="seven"></h2>
+    <h2 class="twelve"></h2>
+    <h2 class="replace" style="font-size: 40px;color: whitesmoke;"></h2>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
+<script src="js/plugins.js"></script>
+<script src="js/main.js"></script>
+<script type="text/javascript" src="js/jquery.countdown.js"></script>
+
+<script>
+    jQuery(document).ready(function () {
+        var deadline = '2016/12/03 11:30:00';
+
+        jQuery('.day').countdown(deadline).on('update.countdown', function (event) {
+            var $this = jQuery(this).html(event.strftime('%D') + 'd');
+        });
+
+        jQuery('.hour').countdown(deadline).on('update.countdown', function (event) {
+            var $this = jQuery(this).html(event.strftime('%H') + 'h');
+        });
+
+        jQuery('.minutes').countdown(deadline).on('update.countdown', function (event) {
+            var $this = jQuery(this).html(event.strftime('%M') + 'm');
+        });
+
+        jQuery('.seconds').countdown(deadline).on('update.countdown', function (event) {
+            var $this = jQuery(this).html(event.strftime('%S') + 's');
+        });
+
+        jQuery('.first').countdown('2016/11/01 01:00:00')
+                .on('finish.countdown', function (event) {
+                    attachIt('Countdown to the Hack!');
+                });
+
+        jQuery('.second').countdown('2016/12/03 11:30:00')
+                .on('finish.countdown', function (event) {
+                    attachIt('Hack till you drop');
+                });
+
+        jQuery('.sixteen').countdown('2016/12/03 16:00:00')
+                .on('finish.countdown', function (event) {
+                    attachIt('No beer before 4 (vier)!');
+                });
+
+        jQuery('.eighteen').countdown('2016/12/03 19:00:00')
+                .on('finish.countdown', function (event) {
+                    attachIt('Grab some food!');
+                });
+
+        jQuery('.twentyone').countdown('2016/12/03 21:00:00')
+                .on('finish.countdown', function (event) {
+                    attachIt('Countdown to the hack.');
+                });
+
+        jQuery('.twentythree').countdown('2016/12/04 22:00:00')
+                .on('finish.countdown', function (event) {
+                    attachIt('The Geek Olympics are coming!');
+                });
+
+        jQuery('.zero').countdown('2016/12/04 00:00:01')
+                .on('finish.countdown', function (event) {
+                    attachIt('Grab a midnight snack! - Berliner Currywurst');
+                });
+
+        jQuery('.seven').countdown('2016/12/04 06:00:00')
+                .on('finish.countdown', function (event) {
+                    attachIt('Last six hours');
+                });
+
+        jQuery('.twelve').countdown('2016/12/04 11:00:00')
+                .on('finish.countdown', function (event) {
+                    attachIt('Final countdown!');
+                });
+
+        jQuery('.twelve').countdown('2016/12/04 12:00:01')
+                .on('finish.countdown', function (event) {
+                    attachIt('Waiting for the pitches');
+                });
+
+        function attachIt(message) {
+            console.log(message);
+            jQuery('.replace').text(message);
+        }
+    });
+</script>
+</body>
+</html>
